@@ -1,15 +1,26 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import Products from '../Pages/Products'
-import Slider1 from '../Components/Slider1'
-import ProductSlider from '../Components/ProductSlider.jsx'
+import ProductSlider from '../Components/ProductSlider/index.jsx'
+import Category1 from '../Components/Category1/index.jsx'
+import AdSection1 from '../Components/AdSection1/index.jsx'
+import AdSlider1 from '../Components/AdSlider1/index.jsx'
+import Category2 from '../Components/Category2/index.jsx'
+import AdSection2 from '../Components/AsSection2/index.jsx'
+import BrandsIcons from '../Components/BrandsIcons/index.jsx'
+
 
 export default function Layout() {
   return (
     <>
      <Navbar/>
-     <Slider1/>
+     <AdSlider1/>
+     <Category1/>
      <ProductSlider/>
+     <AdSection1/>
+     <Category2/>
+     <AdSection2/>
+     <BrandsIcons/>
      <Products/>
     </>
   )

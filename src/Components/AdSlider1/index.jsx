@@ -3,7 +3,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // ✅ استایل‌های پیش‌فرض
 
-export default function Slider1() {
+export default function AdSlider1() {
   return (
     <div style={{ width: '100%', marginBottom: '2rem' }}>
       <Carousel
@@ -12,7 +12,7 @@ export default function Slider1() {
         showThumbs={false}    // ✅ حذف تصاویر کوچک پایین
         showStatus={false}    // ✅ حذف متن وضعیت (مثلا 1/2)
         interval={3000}       // ✅ زمان تغییر اسلاید (3 ثانیه)
-        stopOnHover={false}   // ✅ با بردن موس روی اسلایدر، پخش متوقف نشه
+        stopOnHover={true}   // ✅ با بردن موس روی اسلایدر، پخش متوقف نشه
         dynamicHeight={false} // ✅ ارتفاع ثابت
         renderArrowNext={(onClickHandler, hasNext, label) =>
           hasNext && (

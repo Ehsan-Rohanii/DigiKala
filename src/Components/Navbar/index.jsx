@@ -87,37 +87,43 @@ export default function Navbar() {
           </div>
 
           {/* بخش دسته‌بندی و لینک‌ها (با چیدمان معکوس: راست به چپ) */}
-          <div className="flex items-center gap-6 flex-row-reverse">
+         <div className="flex items-center gap-6 flex-row-reverse">
             
-            {/* بخش دسته‌بندی با مگامنو */}
-            <div 
-              className="relative flex items-center gap-2 text-gray-700 font-bold cursor-pointer hover:text-red-600 transition-colors"
-              onMouseEnter={() => setIsMenuOpen(true)}
-              onMouseLeave={() => setIsMenuOpen(false)}
-            >
-              <FaChevronDown size={12} className="mt-1" />
-              <span>دسته‌بندی کالاها</span>
-              
-              <FaBars className="text-gray-500" />
-              
-              {/* مگامنو */}
-              {isMenuOpen && (
-                <div className="absolute top-[100%] right-[0%] w-[90%] md:w-[1000px] bg-white shadow-2xl rounded-b-lg border border-gray-100 p-6 grid grid-cols-4 gap-6 z-50">
-                  {categories.map((cat, index) => (
-                    <div key={index} className="flex flex-col gap-2">
-                      <h3 className="font-bold text-gray-800 border-b pb-2 mb-2">{cat.title}</h3>
-                      <ul className="flex flex-col gap-1">
-                        {cat.items.map((item, i) => (
-                          <li key={i} className="text-gray-500 hover:text-red-600 hover:underline cursor-pointer text-sm">
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              )}
+    {/* بخش دسته‌بندی با مگامنو */}
+    <div className="flex items-center gap-6 flex-row-reverse">
+            
+    {/* بخش دسته‌بندی با مگامنو */}
+    <div 
+      className="relative flex items-center gap-2 text-gray-700 font-bold cursor-pointer hover:text-red-600 transition-colors"
+      onMouseEnter={() => setIsMenuOpen(true)}
+      onMouseLeave={() => setIsMenuOpen(false)}
+    >
+      <FaChevronDown size={12} className="mt-1" />
+      <span>دسته‌بندی کالاها</span>
+      
+      <FaBars className="text-gray-500" />
+      
+      {/* مگامنو */}
+      {isMenuOpen && (
+        <div className="absolute top-[100%] right-0 w-full md:w-[700px] bg-white shadow-2xl rounded-b-lg border border-gray-100 p-4 md:p-6 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 z-50 max-h-[70vh] overflow-y-auto">
+          {categories.map((cat, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              <h3 className="font-bold text-gray-800 border-b pb-2 mb-2 text-sm md:text-base">{cat.title}</h3>
+              <ul className="flex flex-col gap-1">
+                {cat.items.map((item, i) => (
+                  <li key={i} className="text-gray-600 hover:text-red-600 hover:underline cursor-pointer text-sm md:text-sm py-1">
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
+          ))}
+        </div>
+      )}
+    </div>
+</div>
+
+
 
             {/* سایر لینک‌های سریع */}
             <div className="hidden lg:flex items-center gap-4 text-gray-600 text-sm">
