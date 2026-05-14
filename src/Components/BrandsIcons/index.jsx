@@ -33,6 +33,7 @@ export default function BrandsIcons() {
 
   return (
     <div className="relative w-[90%] mx-auto my-10  rounded-2xl">
+      <h3 className='text-center text-xl'>معروف ترین برند ها</h3>
       <button 
         onClick={() => handleScroll('next')} 
         className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm text-gray-800 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 active:scale-95 border border-gray-200"
