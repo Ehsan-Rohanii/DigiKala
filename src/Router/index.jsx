@@ -3,16 +3,23 @@ import Layout from "../Layout";
 import ProductDetails from "../Components/Products/ProductDetails";
 import CategoruDetails from "../Components/Products/CategoryDetails";
 import CategoryDetails from "../Components/Products/CategoryDetails";
+import Auth from "../Pages/Auth/FirstStep";
+import Search from "../Pages/Search";
 
 const router = createBrowserRouter ([
     {
-        path:'/' ,
+        path:'/',
+        element:<Auth/>
+    },
+    {
+        path:'/home' ,
         element:<Layout/>,
         
     },
     {
-        path:"/product/:id",
-        element:<ProductDetails />
+        path:'/search',
+        element:<Search/>
     }
+    
 ])
 export default router

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import {
   FaBars,
   FaBell,
@@ -7,6 +8,7 @@ import {
   FaShoppingCart,
   FaChevronDown,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // لیست دسته‌بندی‌ها برای مگامنو
 const categories = [
@@ -30,6 +32,26 @@ const categories = [
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate()
+  const [search , setSearch] = useState([])
+  const [id , setId] = useState("")
+  const [search1 , setSearch1] = useState()
+  useEffect(()=> {
+          (async() => {
+              try {
+                  const res = await fetch(`http://localhost:5000/api/products/${id}`)
+                  if(!res.ok) {
+                      throw new Error ("محصولی یافت نشد")
+                  }
+                  const data = await res.json();
+                  setSearch(data.data)
+              } catch (error) {
+                  
+              }
+          })()
+      },[id]);
+      console.log(search)
+      
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
@@ -39,7 +61,9 @@ export default function Navbar() {
         {/* بخش سمت چپ: دکمه‌ها و آیکون‌ها */}
         <div className="flex items-center gap-4">
           {/* دکمه ورود/ثبت نام */}
-          <button className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium">
+          <button
+          onClick={() => {navigate('/')}} 
+          className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium">
             <span>ورود | ثبت‌نام</span>
           </button>
 
@@ -62,6 +86,9 @@ export default function Navbar() {
   <input
     type="text"
     placeholder="جستجو در دیجی‌کالا"
+    onClick={()=>{navigate('/search')}}
+    value={id}
+    onChange={(e) => setId(e.target.value)}
     className="w-[600px] bg-gray-100 text-gray-700 border-none rounded-full py-2.5 px-5 pr-10 focus:outline-none focus:ring-1 focus:ring-red-500 transition-all placeholder-gray-400 text-right"
   />
   <div className="absolute right-3 text-gray-400">
@@ -136,6 +163,10 @@ export default function Navbar() {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <img src={search.image} alt="" />
+        <p>{search.title}</p>
       </div>
     </nav>
   );
