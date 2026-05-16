@@ -71,7 +71,7 @@ export default function Auth() {
             است.
           </p>
         </div>
-
+        <p className='text-center mt-4 text-gray-400'>09353926941</p>
       </div>
     </div>
   );

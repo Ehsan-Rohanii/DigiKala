@@ -5,6 +5,7 @@ import CategoruDetails from "../Components/Products/CategoryDetails";
 import CategoryDetails from "../Components/Products/CategoryDetails";
 import Auth from "../Pages/Auth/FirstStep";
 import Search from "../Pages/Search";
+import AllProducts from "../Pages/AllProducts";
 
 const router = createBrowserRouter ([
     {
@@ -17,9 +18,11 @@ const router = createBrowserRouter ([
         
     },
     {
-        path:'/search',
-        element:<Search/>
-    }
+        path:'/allProducts' ,
+        element:<AllProducts/>,
+        
+    },
+    
     
 ])
 export default router
