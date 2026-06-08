@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 export default function CategoryDetails() {
-  const { id } = useParams(); // گرفتن ID از URL (مثلا /categories/1)
+  const { id } = useParams();
   const [category, setCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,14 +13,6 @@ export default function CategoryDetails() {
       try {
         setLoading(true);
         setError(null);
-
-        // ۱. دریافت اطلاعات دسته (اختیاری، برای نمایش اسم دسته)
-        // اگر اندپوینت جداگانه داری:
-        // const catRes = await fetch(`http://localhost:5000/api/categories/${id}`);
-        // const catData = await catRes.json();
-        // setCategory(catData.data);
-
-        // ۲. دریافت محصولات مربوط به این دسته
         const res = await fetch(`http://localhost:5000/api/products/${id}`);
         
         if (!res.ok) {
@@ -28,11 +20,8 @@ export default function CategoryDetails() {
         }
 
         const data = await res.json();
-        // فرض می‌کنیم محصولات در data.data هستند
         setProducts(data.data);
         
-        // اگر اطلاعات دسته رو از API گرفتی، اینجا ست کن
-        // setCategory(catData.data);
 
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -43,7 +32,6 @@ export default function CategoryDetails() {
     })();
   }, [id]);
 
-  // لیست ثابت برای نمایش اسم دسته (اگر از API نگرفتی)
   const categoryTitles = {
     1: "الکترونیک",
     2: "پوشاک",

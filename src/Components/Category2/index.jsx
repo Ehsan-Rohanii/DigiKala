@@ -37,15 +37,13 @@ export default function Category2() {
   return (
     <div className="relative w-[90%] mx-auto my-10  rounded-2xl">
       
-      {/* دکمه بعدی (حالا سمت چپ قرار می‌گیره) */}
       <button 
         onClick={() => handleScroll('next')} 
         className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm text-gray-800 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 active:scale-95 border border-gray-200"
       >
-        <FaChevronLeft/> {/* فلش به سمت راست (بعدی) */}
+        <FaChevronLeft/>
       </button>
       
-      {/* کانتینر محصولات - جهت اسکرول برعکس شده */}
       <div 
         ref={scrollContainerRef} 
         className="flex gap-4 overflow-x-auto p-4 scrollbar-hide scroll-smooth flex-row-reverse"
@@ -77,12 +75,11 @@ export default function Category2() {
         })}
       </div>
 
-      {/* دکمه قبلی (حالا سمت راست قرار می‌گیره) */}
       <button 
         onClick={() => handleScroll('prev')} 
         className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm text-gray-800 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110 active:scale-95 border border-gray-200"
       >
-        <FaChevronRight/> {/* فلش به سمت چپ (قبلی) */}
+        <FaChevronRight/>
       </button>
     </div>
   );

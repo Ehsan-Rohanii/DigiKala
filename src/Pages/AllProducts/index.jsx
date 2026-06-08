@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../Components/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 export default function AllProducts() {
   const [products, setProducts] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
       try {
         const res = await fetch("http://localhost:5000/api/products");
         const data = await res.json();
-        // مطمئن شو که دیتا در data.data قرار داره
         setProducts(data.data); 
       } catch (error) {
         console.error("Error fetching products:", error.message);
       }
     })();
   }, []);
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`)
+  }
 
   return (
     
@@ -30,6 +34,7 @@ export default function AllProducts() {
             <div 
               key={pr.id} 
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
+              onClick={() => handleProductClick(pr.id)}
             >
               <div className="h-48 overflow-hidden bg-gray-100">
                 <img 

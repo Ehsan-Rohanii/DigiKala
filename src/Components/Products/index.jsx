@@ -5,13 +5,11 @@ export default function Products() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState();
 
-  // لود کردن لیست دسته‌بندی‌ها
   useEffect(() => {
     (async () => {
       try {
         const result = await fetch("http://localhost:5000/api/categories");
         const data = await result.json();
-        // فرض می‌کنیم دیتا در data.data قرار دارد
         setCategories(data.data || []);
       } catch (error) {
         console.error("Error fetching categories:", error.message);

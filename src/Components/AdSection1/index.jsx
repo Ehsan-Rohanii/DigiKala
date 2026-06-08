@@ -15,7 +15,6 @@ export default function AdSection1() {
     const ad = ads.map((a) => {
         return (
             <a key={a.id} href='#' className='group'>
-                {/* تصویر ریسپانسیو با حفظ نسبت ابعاد */}
                 <img 
                     src={a.img} 
                     alt="" 

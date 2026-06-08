@@ -30,7 +30,6 @@ export default function Category1() {
   
     <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 w-[90%] mx-auto gap-y-6 gap-x-4 lg:gap-[64px] items-center justify-center'>
       
-      {/* دکمه بیشتر */}
       <div className='flex flex-col items-center gap-2 group'>
         <div className='w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center shadow-sm transition-colors duration-300 group-hover:bg-gray-200'>
           <span className='text-2xl text-gray-500'>...</span>

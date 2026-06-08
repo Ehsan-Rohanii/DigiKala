@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Products4() {
   const [products, setProducts] = useState();
+  const navigate = useNavigate()
 
   useEffect(() => {
     (async () => {
       try {
         const res = await fetch("http://localhost:5000/api/products");
         const data = await res.json();
-        // مطمئن شو که دیتا در data.data قرار داره
         setProducts(data.data); 
       } catch (error) {
         console.error("Error fetching products:", error.message);
       }
     })();
   }, []);
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`)
+  }
 
   return (
     <div className="p-6">
@@ -25,6 +29,7 @@ export default function Products4() {
           {products.map((pr) => (
             <div 
               key={pr.id} 
+              onClick={() => handleProductClick(products.id)}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
             >
               <div className="h-48 overflow-hidden bg-gray-100">

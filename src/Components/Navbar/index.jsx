@@ -61,30 +61,35 @@ export default function Navbar() {
     <nav>
       <div className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          {/* بخش سمت چپ: دکمه‌ها و آیکون‌ها */}
           <div className="flex items-center gap-4">
-            {/* دکمه ورود/ثبت نام */}
-            <button
-              onClick={() => {
-                navigate("/");
-              }}
-              className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium"
-            >
-              <span>ورود | ثبت‌نام</span>
-            </button>
+            {localStorage.getItem('isLoggedIn') === 'true' ? (
+  <button 
+    onClick={() => {
+      localStorage.removeItem('isLoggedIn');  
+      navigate('/');
+    }}
+    className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2 bg-red-400 text-gray-900 hover:bg-red-500 transition-colors text-sm font-medium"
+  >
+    خروج از حساب کاربری
+  </button>
+) : (
+  <button
+    onClick={() => navigate("/")}
+    className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2 bg-red-500 text-gray-900 hover:bg-red-500 transition-colors text-sm font-medium"
+  >
+    <span>ورود | ثبت‌نام</span>
+  </button>
+)}
 
-            {/* آیکون سبد خرید */}
             <button className="p-2 hover:bg-gray-100 rounded-full transition-colors relative">
               <FaShoppingCart size={22} className="text-gray-700" />
             </button>
 
-            {/* آیکون اعلان‌ها */}
             <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
               <FaBell size={20} className="text-gray-500" />
             </button>
           </div>
 
-          {/* بخش سمت راست: لوگو و سرچ */}
           <div className="flex items-center gap-6">
             <div className="relative hidden md:flex items-center">
               <input
@@ -105,20 +110,15 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* ردیف پایین: آدرس و دسته‌بندی */}
         <div className="  border-gray-200">
           <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm">
-            {/* بخش انتخاب آدرس (سمت چپ) */}
             <div className="flex items-center gap-2 bg-orange-200 rounded-full px-3 py-1 text-orange-800 cursor-pointer hover:text-gray-900 transition-colors">
               <FaMapMarkedAlt className="text-gray-500" />
               <span>انتخاب آدرس</span>
             </div>
 
-            {/* بخش دسته‌بندی و لینک‌ها (با چیدمان معکوس: راست به چپ) */}
             <div className="flex items-center gap-6 flex-row-reverse">
-              {/* بخش دسته‌بندی با مگامنو */}
               <div className="flex items-center gap-6 flex-row-reverse">
-                {/* بخش دسته‌بندی با مگامنو */}
                 <div
                   className="relative flex items-center gap-2 text-gray-700 font-bold cursor-pointer hover:text-red-600 transition-colors"
                   onMouseEnter={() => setIsMenuOpen(true)}
@@ -129,7 +129,6 @@ export default function Navbar() {
 
                   <FaBars className="text-gray-500" />
 
-                  {/* مگامنو */}
                   {isMenuOpen && (
                     <div className="absolute top-[100%] right-0 w-full md:w-[750px] bg-white shadow-2xl rounded-b-lg border border-gray-100 p-4 md:p-6 grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6 z-50 max-h-[70vh] overflow-y-auto">
                       {categories.map((cat, index) => (
@@ -158,7 +157,6 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* سایر لینک‌های سریع */}
               <div className="hidden lg:flex items-center gap-4 text-gray-600 text-sm">
                 <a href="#" className="hover:text-red-600">
                   !در دیجیکالا بفروشید
