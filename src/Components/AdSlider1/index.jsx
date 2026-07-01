@@ -1,164 +1,158 @@
 import React from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // ✅ استایل‌های پیش‌فرض
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export default function AdSlider1() {
   return (
-    <div style={{ width: '100%', marginBottom: '2rem' }}>
-      <Carousel
-        autoPlay={true}       // ✅ پخش خودکار
-        infiniteLoop={true}   // ✅ لوپ بی‌نهایت
-        showThumbs={false}    // ✅ حذف تصاویر کوچک پایین
-        showStatus={false}    // ✅ حذف متن وضعیت (مثلا 1/2)
-        interval={3000}       // ✅ زمان تغییر اسلاید (3 ثانیه)
-        stopOnHover={true}   // ✅ با بردن موس روی اسلایدر، پخش متوقف نشه
-        dynamicHeight={false} // ✅ ارتفاع ثابت
-        renderArrowNext={(onClickHandler, hasNext, label) =>
-          hasNext && (
-            <button
-              type="button"
-              onClick={onClickHandler}
-              title={label}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                right: '10px',
-                transform: 'translateY(-50%)',
-                background: 'rgba(0,0,0,0.5)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                cursor: 'pointer',
-                zIndex: 10,
-                fontSize: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <FaChevronRight/>
-            </button>
-          )
-        }
-        renderArrowPrev={(onClickHandler, hasNext, label) =>
-          hasNext && (
-            <button
-              type="button"
-              onClick={onClickHandler}
-              title={label}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '10px',
-                transform: 'translateY(-50%)',
-                background: 'rgba(0,0,0,0.5)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                cursor: 'pointer',
-                zIndex: 10,
-                fontSize: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <FaChevronLeft/>
-            </button>
-          )
-        }
-        renderIndicator={(onClickHandler, isSelected, index, label) => {
-          if (isSelected) {
-            return (
-              <li
-                key={index}
-                style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  background: 'white',
-                  border: 'none',
-                  cursor: 'pointer',
-                  margin: '0 5px'
-                }}
-                aria-label={`${label} ${index + 1}`}
-                title={`${label} ${index + 1}`}
-              />
-            );
-          } else {
-            return (
-              <li
-                key={index}
-                style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.5)',
-                  border: 'none',
-                  cursor: 'pointer',
-                  margin: '0 5px'
-                }}
-                aria-label={`${label} ${index + 1}`}
-                title={`${label} ${index + 1}`}
-              />
-            );
+    <div className="w-full mb-4 sm:mb-6 md:mb-8 px-2 sm:px-4">
+      <div className="max-w-7xl mx-auto">
+        <Carousel
+          autoPlay={true}
+          infiniteLoop={true}
+          showThumbs={false}
+          showStatus={false}
+          interval={3000}
+          stopOnHover={true}
+          dynamicHeight={false}
+          showArrows={true}
+          renderArrowNext={(onClickHandler, hasNext, label) =>
+            hasNext && (
+              <button
+                type="button"
+                onClick={onClickHandler}
+                title={label}
+                className="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white border-none rounded-full w-8 h-8 sm:w-10 sm:h-10 cursor-pointer z-10 text-sm sm:text-base flex items-center justify-center transition-all duration-200 hover:scale-110"
+              >
+                <FaChevronRight className="text-xs sm:text-sm md:text-base" />
+              </button>
+            )
           }
-        }}
-      >
-        <div>
-          <img 
-            src="/assets/ad1.jpg" 
-            alt="Ad 1" 
-            style={{ width: '100%', height: 'auto', display: 'block' }} 
-          />
-        </div>
-        
-        
-        <div>
-          <img 
-            src="/assets/ad2.jpg" 
-            alt="Ad 2" 
-            style={{ width: '100%', height: 'auto', display: 'block' }} 
-          />
-        </div>
+          renderArrowPrev={(onClickHandler, hasNext, label) =>
+            hasNext && (
+              <button
+                type="button"
+                onClick={onClickHandler}
+                title={label}
+                className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white border-none rounded-full w-8 h-8 sm:w-10 sm:h-10 cursor-pointer z-10 text-sm sm:text-base flex items-center justify-center transition-all duration-200 hover:scale-110"
+              >
+                <FaChevronLeft className="text-xs sm:text-sm md:text-base" />
+              </button>
+            )
+          }
+          renderIndicator={(onClickHandler, isSelected, index, label) => {
+            const baseStyle = {
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              border: 'none',
+              cursor: 'pointer',
+              margin: '0 4px',
+              transition: 'all 0.3s ease',
+              display: 'inline-block',
+            };
+            
+            if (isSelected) {
+              return (
+                <li
+                  key={index}
+                  style={{
+                    ...baseStyle,
+                    background: 'white',
+                    width: '20px',
+                    borderRadius: '4px',
+                  }}
+                  aria-label={`${label} ${index + 1}`}
+                  title={`${label} ${index + 1}`}
+                  onClick={onClickHandler}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      onClickHandler();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                />
+              );
+            } else {
+              return (
+                <li
+                  key={index}
+                  style={{
+                    ...baseStyle,
+                    background: 'rgba(255,255,255,0.4)',
+                  }}
+                  aria-label={`${label} ${index + 1}`}
+                  title={`${label} ${index + 1}`}
+                  onClick={onClickHandler}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      onClickHandler();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                />
+              );
+            }
+          }}
+          renderThumbs={() => null}
+        >
+          <div>
+            <img 
+              src="/assets/ad1.jpg" 
+              alt="Ad 1" 
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+              loading="lazy"
+            />
+          </div>
+          
+          <div>
+            <img 
+              src="/assets/ad2.jpg" 
+              alt="Ad 2" 
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+              loading="lazy"
+            />
+          </div>
 
-
-        <div>
+          <div>
             <img 
-            src="/assets/ad4.jpg" 
-            alt="Ad3" 
-            style={{ width: '100%', height: 'auto', display: 'block' }}
+              src="/assets/ad4.jpg" 
+              alt="Ad 3" 
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+              loading="lazy"
             />
-        </div>
-        <div>
+          </div>
+          
+          <div>
             <img 
-            src="/assets/ad5.jpg" 
-            alt="Ad3" 
-            style={{ width: '100%', height: 'auto', display: 'block' }}
+              src="/assets/ad5.jpg" 
+              alt="Ad 4" 
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+              loading="lazy"
             />
-        </div>
-        <div>
+          </div>
+          
+          <div>
             <img 
-            src="/assets/ad6.jpg" 
-            alt="Ad3" 
-            style={{ width: '100%', height: 'auto', display: 'block' }}
+              src="/assets/ad6.jpg" 
+              alt="Ad 5" 
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+              loading="lazy"
             />
-        </div>
-        <div>
+          </div>
+          
+          <div>
             <img 
-            src="/assets/ad7.jpg" 
-            alt="Ad3" 
-            style={{ width: '100%', height: 'auto', display: 'block' }}
+              src="/assets/ad7.jpg" 
+              alt="Ad 6" 
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+              loading="lazy"
             />
-        </div>
-      </Carousel>
+          </div>
+        </Carousel>
+      </div>
     </div>
   );
 }
-
-
