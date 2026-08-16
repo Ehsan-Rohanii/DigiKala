@@ -5,7 +5,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export default function AdSlider1() {
   return (
-    <div className="w-full mb-4 sm:mb-6 md:mb-8 px-2 sm:px-4">
+    <div className="w-full mb-4 sm:mb-6 md:mb-8 px-2 sm:px-4 mt-4">
       <div className="max-w-7xl mx-auto">
         <Carousel
           autoPlay={true}
