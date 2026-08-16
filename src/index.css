@@ -1,1 +1,8 @@
 @import "tailwindcss";
+@font-face {
+    font-family: 'Vazir';
+    src: url('/public/assets/vazir-font-v16.1.0/Vazir-Medium.eot')format(eot);
+    src: url('/public/assets/vazir-font-v16.1.0/Vazir-Medium.woff') format(woff);
+    src: url('/public/assets/vazir-font-v16.1.0/Vazir-Medium.woff2') format(woff2);
+
+}
