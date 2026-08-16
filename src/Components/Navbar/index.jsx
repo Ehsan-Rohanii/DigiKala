@@ -179,7 +179,7 @@ export default function Navbar() {
                   onChange={(e) => setId(e.target.value)}
                   className="w-full bg-gray-100 text-gray-700 border-none rounded-full py-2.5 px-5 pr-10 focus:outline-none focus:ring-1 focus:ring-red-500 transition-all placeholder-gray-400 text-right text-sm"
                 />
-                <div className="absolute right-3 text-gray-400">
+                <div className="absolute right-9 text-gray-400">
                   <FaSearch size={16} />
                 </div>
                 <button 
@@ -188,7 +188,7 @@ export default function Navbar() {
                     setIsMobileMenuOpen(false);
                   }}
                 >
-                  <FaTimes size={16} className="text-gray-500" />
+                  {/* <FaTimes size={16} className="text-gray-500" /> */}
                 </button>
               </div>
 
