@@ -5,4 +5,7 @@
     src: url('/public/assets/vazir-font-v16.1.0/Vazir-Medium.woff') format(woff);
     src: url('/public/assets/vazir-font-v16.1.0/Vazir-Medium.woff2') format(woff2);
 
+};
+*{
+font-family: "Vazir" !important;
 }
