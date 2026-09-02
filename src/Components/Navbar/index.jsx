@@ -8,6 +8,7 @@ import {
   FaShoppingCart,
   FaChevronDown,
   FaTimes,
+  FaUser,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -40,8 +41,54 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const navigate = useNavigate();
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState(null);
   const [id, setId] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [cartCount, setCartCount] = useState(0);
+
+  // دریافت شماره کاربر از localStorage
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userData = localStorage.getItem("user");
+    
+    if (token && userData) {
+      try {
+        const user = JSON.parse(userData);
+        setUserPhone(user.phoneNumber || user.phone || "");
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
+    }
+  }, []);
+
+  // دریافت تعداد سبد خرید
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setCartCount(0);
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:5000/api/cart", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const cart = data.data || data;
+          setCartCount(cart?.totalItems || 0);
+        }
+      } catch (error) {
+        console.error("Error fetching cart count:", error);
+      }
+    };
+
+    fetchCartCount();
+  }, []);
 
   useEffect(() => {
     if (!id) {
@@ -64,6 +111,18 @@ export default function Navbar() {
     })();
   }, [id]);
 
+  // تابع خروج از حساب
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("isLoggedIn");
+    setUserPhone("");
+    setCartCount(0);
+    navigate("/");
+  };
+
+  const isLoggedIn = !!localStorage.getItem("token");
+
   return (
     <nav>
       <div className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
@@ -80,30 +139,42 @@ export default function Navbar() {
               {isMobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
             </button>
 
-            {localStorage.getItem('isLoggedIn') === 'true' ? (
-              <button 
-                onClick={() => {
-                  localStorage.removeItem('isLoggedIn');  
-                  navigate('/');
-                }}
-                className="hidden sm:flex items-center gap-2 border border-gray-300 rounded-lg px-2 sm:px-4 py-1.5 sm:py-2 bg-red-400 text-white hover:bg-red-500 transition-colors text-xs sm:text-sm font-medium"
-              >
-                خروج از حساب کاربری
-              </button>
+            {/* دکمه ورود/خروج - دسکتاپ */}
+            {isLoggedIn ? (
+              <div className="hidden sm:flex items-center gap-3">
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 border border-red-300 rounded-lg px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 transition-colors text-sm font-medium"
+                >
+                  خروج
+                </button>
+                <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-1.5 border border-gray-200">
+                  <FaUser className="text-gray-400 text-sm" />
+                  <span className="text-sm font-medium text-gray-700 dir-ltr">
+                    {userPhone || "کاربر"}
+                  </span>
+                </div>
+              </div>
             ) : (
               <button
-                onClick={() => navigate("/")}
-                className="hidden sm:flex items-center gap-2 border border-gray-300 rounded-lg px-2 sm:px-4 py-1.5 sm:py-2 bg-red-500 text-white hover:bg-red-600 transition-colors text-xs sm:text-sm font-medium"
+                onClick={() => navigate("/login")}
+                className="hidden sm:flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-1.5 bg-red-500 text-white hover:bg-red-600 transition-colors text-sm font-medium"
               >
                 <span>ورود | ثبت‌نام</span>
               </button>
             )}
 
-            <button className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors relative">
+            {/* دکمه سبد خرید - لینک به /cart */}
+            <button
+              onClick={() => navigate("/cart")}
+              className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors relative"
+            >
               <FaShoppingCart size={18} className="sm:text-[22px] text-gray-700" />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
-                0
-              </span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+                  {cartCount > 9 ? "9+" : cartCount}
+                </span>
+              )}
             </button>
 
             <button className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors hidden sm:block">
@@ -126,11 +197,14 @@ export default function Navbar() {
               </div>
             </div>
 
-            <h1 className="text-red-600 font-bold text-2xl sm:text-3xl tracking-tighter cursor-pointer whitespace-nowrap">
+            <h1 
+              onClick={() => navigate("/")}
+              className="text-red-600 font-bold text-2xl sm:text-3xl tracking-tighter cursor-pointer whitespace-nowrap"
+            >
               دیجی‌کالا
             </h1>
 
-            {/* دکمه جستجو برای موبایل - تغییر آیکون بر اساس وضعیت */}
+            {/* دکمه جستجو برای موبایل */}
             <button 
               className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
               onClick={() => {
@@ -182,29 +256,28 @@ export default function Navbar() {
                 <div className="absolute right-9 text-gray-400">
                   <FaSearch size={16} />
                 </div>
-                <button 
-                  className="mr-2 p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  {/* <FaTimes size={16} className="text-gray-500" /> */}
-                </button>
               </div>
 
               {/* دکمه‌های کاربری در موبایل */}
               <div className="flex flex-col gap-2 mb-4">
-                {localStorage.getItem('isLoggedIn') === 'true' ? (
-                  <button 
-                    onClick={() => {
-                      localStorage.removeItem('isLoggedIn');  
-                      navigate('/');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full text-center bg-red-400 text-white rounded-lg py-2.5 hover:bg-red-500 transition-colors text-sm"
-                  >
-                    خروج از حساب کاربری
-                  </button>
+                {isLoggedIn ? (
+                  <>
+                    <div className="flex items-center gap-3 bg-gray-50 rounded-lg px-4 py-2.5 border border-gray-200">
+                      <FaUser className="text-gray-400" />
+                      <span className="text-sm font-medium text-gray-700 dir-ltr">
+                        {userPhone || "کاربر"}
+                      </span>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        handleLogout();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full text-center bg-red-400 text-white rounded-lg py-2.5 hover:bg-red-500 transition-colors text-sm"
+                    >
+                      خروج از حساب کاربری
+                    </button>
+                  </>
                 ) : (
                   <button
                     onClick={() => {
