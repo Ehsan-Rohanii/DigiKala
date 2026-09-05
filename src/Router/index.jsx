@@ -6,6 +6,7 @@ import Register from "../Pages/Auth/Register";
 import Login from "../Pages/Auth/Login";
 import LoginOtp from "../Pages/Auth/LoginOtp";
 import LoginPass from "../Pages/Auth/LoginPass";
+import Cart from "../Pages/Cart";
 
 const router = createBrowserRouter ([
     {
@@ -13,7 +14,7 @@ const router = createBrowserRouter ([
         element:<Register/>
     },
     {
-        path:'/' ,
+        path:'/login' ,
         element:<Login/>
     },
     {
@@ -25,7 +26,7 @@ const router = createBrowserRouter ([
         element:<LoginPass/>
     },
     {
-        path:'/layout' ,
+        path:'/' ,
         element:<Layout/>,
         
     },
@@ -37,7 +38,11 @@ const router = createBrowserRouter ([
     {
         path:"/product/:id" ,
         element:<ProductDetails/>
-    }
+    },
+    {
+        path:"/cart" ,
+        element:<Cart/>
+    },
     
     
 ])
