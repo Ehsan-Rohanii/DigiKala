@@ -6,6 +6,11 @@ import { Alert, Box, Button, CircularProgress, Container, Divider, Paper, Typogr
 import { keyframes } from '@mui/system';
 
 // ============================================================
+//  IMPORT setPhone FROM Redux Slice
+// ============================================================
+import { setPhone } from '../../../Store/PhoneSlice'; // مسیر را با توجه به ساختار پروژه تنظیم کنید
+
+// ============================================================
 //  BRAND COLORS - Red Theme
 // ============================================================
 const BRAND_RED = '#EF3F3E';
@@ -66,8 +71,10 @@ export default function Login() {
     }
 
     try {
-      // Store phone in Redux
-      // dispatch(setPhone({ phone: phoneNumber }));
+      // ============================================================
+      //  STORE PHONE IN REDUX - FIXED (UNCOMMENTED)
+      // ============================================================
+      dispatch(setPhone({ phone: phoneNumber }));
 
       // Send request to server
       const response = await fetch('http://localhost:5000/api/auth', {
